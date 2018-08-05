@@ -1,0 +1,26 @@
+{
+  "name": "@pardjs/common",
+  "version": "0.0.3",
+  "description": "the common components used in nest.js projects.",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pardjs/common.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pardjs/common/issues"
+  },
+  "homepage": "https://github.com/pardjs/common#readme",
+  "dependencies": {
+    "winston": "^3.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^2.9.2"
+  }
+}

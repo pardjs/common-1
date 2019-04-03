@@ -1,6 +1,12 @@
 {
   "cSpell.words": [
-    "pardjs"
+    "Injectable",
+    "datetime",
+    "metatype",
+    "middlewares",
+    "nestjs",
+    "pardjs",
+    "typeorm"
   ],
   "editor.formatOnSave": true,
   "prettier.trailingComma": "all"

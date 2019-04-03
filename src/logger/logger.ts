@@ -1,25 +1,48 @@
 import * as winston from "winston";
-export const logger = winston.createLogger({
-  format: winston.format.json(),
+// tslint:disable-next-line:no-var-requires
+require("winston-daily-rotate-file");
+const transportInfo = new (winston.transports as any).DailyRotateFile({
+  datePattern: "YYYY-MM-DD-HH",
+  filename: "../logs/log-%DATE%.log",
   level: "info",
-  transports: [
-    //
-    // - Write to all logs with level `info` and below to `combined.log`
-    // - Write all logs error (and below) to `error.log`.
-    //
-    new winston.transports.File({ filename: "error.log", level: "error" }),
-    new winston.transports.File({ filename: "combined.log" }),
-  ],
+  maxFiles: "14d",
+  maxSize: "20m",
+  zippedArchive: true,
+});
+
+const transportError = new (winston.transports as any).DailyRotateFile({
+  datePattern: "YYYY-MM-DD-HH",
+  filename: "../logs/error-%DATE%.log",
+  level: "error",
+  maxFiles: "14d",
+  maxSize: "20m",
+  zippedArchive: true,
+});
+
+const logger = winston.createLogger({
+  defaultMeta: { service: "common" },
+  format: winston.format.combine(
+    winston.format.timestamp(),
+    winston.format.json(),
+  ),
+  level: "info",
+  transports: [transportError, transportInfo],
 });
 
 //
 // If we're not in production then log to the `console` with the format:
 // `${info.level}: ${info.message} JSON.stringify({ ...rest }) `
-//
 if (process.env.NODE_ENV !== "production") {
   logger.add(
     new winston.transports.Console({
-      format: winston.format.simple(),
+      format: winston.format.combine(
+        winston.format.simple(),
+        winston.format.timestamp(),
+      ),
     }),
   );
 }
+
+export { logger };
+
+// TODO: log rotate

@@ -6,8 +6,6 @@ const childLogger = logger.child({ service: "roles-guard" });
 
 @Injectable()
 export class RolesGuard implements CanActivate {
-  constructor() {}
-
   public canActivate(context: ExecutionContext): boolean {
     const request = context.switchToHttp().getRequest();
     const user = request.user;

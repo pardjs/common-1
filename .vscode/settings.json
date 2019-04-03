@@ -3,6 +3,7 @@
     "Greenkeeper",
     "Injectable",
     "datetime",
+    "dayjs",
     "metatype",
     "middlewares",
     "nestjs",

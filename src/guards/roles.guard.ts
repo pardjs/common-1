@@ -6,7 +6,7 @@ const childLogger = logger.child({ service: "roles-guard" });
 
 @Injectable()
 export class RolesGuard implements CanActivate {
-  constructor(private readonly reflector: Reflector) {}
+  constructor() {}
 
   public canActivate(context: ExecutionContext): boolean {
     const request = context.switchToHttp().getRequest();
@@ -18,10 +18,10 @@ export class RolesGuard implements CanActivate {
       });
       return false;
     }
-    const roles = this.reflector.get<string[]>(
+    const roles = Reflect.getMetadata(
       "allowedRoles",
       context.getHandler(),
-    );
+    ) as string[];
     if (!roles || roles.length === 0 || roles[0] === "*") {
       return true;
     }

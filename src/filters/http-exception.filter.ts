@@ -5,6 +5,8 @@ import {
   HttpException,
   HttpStatus,
 } from "@nestjs/common";
+import { Request } from "express";
+import { DEFAULT_LANGUAGE } from "../constants/index";
 import { logger } from "../logger/index";
 
 @Catch()
@@ -12,7 +14,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
   public catch(exception: HttpException, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const res = ctx.getResponse();
-    const req = ctx.getRequest();
+    const req: Request = ctx.getRequest();
     let status = exception.getStatus && exception.getStatus();
     let resData;
     if (!status) {
@@ -22,7 +24,19 @@ export class HttpExceptionFilter implements ExceptionFilter {
         stack: process.env.NODE_ENV !== "production" && exception.stack,
       };
     } else {
-      resData = exception.getResponse() as object;
+      resData = exception.getResponse() as any;
+      if (
+        resData.message &&
+        typeof resData.message === "object" &&
+        resData.message
+      ) {
+        const lang =
+          (req.headers["accept-language"] as string) || DEFAULT_LANGUAGE;
+        const txtMessage = resData.message[lang];
+        if (txtMessage) {
+          resData.message = txtMessage;
+        }
+      }
     }
     if (status !== HttpStatus.OK) {
       logger.error("error caught in http exception handler", {
@@ -33,7 +47,8 @@ export class HttpExceptionFilter implements ExceptionFilter {
         status,
       });
     }
-    // TODO: handle typical http status code properly
+    // TODO: sentry support
+    // TODO: message i2n support, accept-language > default-language > zh-CN
     res.status(status).json({
       error: {
         ...resData,

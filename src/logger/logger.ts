@@ -1,9 +1,12 @@
+import { resolve } from "path";
 import * as winston from "winston";
+import { LOG_PATH } from "../constants/index";
 // tslint:disable-next-line:no-var-requires
 require("winston-daily-rotate-file");
+const logPath = resolve(LOG_PATH || "./logs");
 const transportInfo = new (winston.transports as any).DailyRotateFile({
   datePattern: "YYYY-MM-DD-HH",
-  filename: "../logs/log-%DATE%.log",
+  filename: logPath + "/log-%DATE%.log",
   level: "info",
   maxFiles: "14d",
   maxSize: "20m",
@@ -12,7 +15,7 @@ const transportInfo = new (winston.transports as any).DailyRotateFile({
 
 const transportError = new (winston.transports as any).DailyRotateFile({
   datePattern: "YYYY-MM-DD-HH",
-  filename: "../logs/error-%DATE%.log",
+  filename: logPath + "/error-%DATE%.log",
   level: "error",
   maxFiles: "14d",
   maxSize: "20m",
@@ -42,6 +45,8 @@ if (process.env.NODE_ENV !== "production") {
     }),
   );
 }
+
+logger.info(`log will be dumped into ${logPath}`);
 
 export { logger };
 

@@ -3,6 +3,9 @@
   "version": "1.0.2",
   "description": "the common components used in nest.js projects.",
   "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsc",
     "build-watch": "tsc --watch",

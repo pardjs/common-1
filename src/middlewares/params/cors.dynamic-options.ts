@@ -3,6 +3,7 @@ import { logger } from "../../logger/index";
 
 const whitelist = (process.env.FRONTEND_URL || "").split(",");
 export const corsOptions: CorsOptions = {
+  credentials: true,
   origin: (origin, callback) => {
     logger.info("origin", { origin });
     if (whitelist.indexOf(origin) !== -1 || !origin) {

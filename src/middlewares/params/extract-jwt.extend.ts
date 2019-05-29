@@ -3,10 +3,10 @@ import { Request } from "express";
 export const fromAnywhere = () => {
   return (req: Request) => {
     const token: string =
-      req.query.access_token ||
-      req.headers.Authorization ||
-      req.headers.authorization ||
-      req.cookies.authorization;
+      (req.query && req.query.access_token) ||
+      (req.headers && req.headers.Authorization) ||
+      (req.headers && req.headers.authorization) ||
+      (req.cookies && req.cookies.authorization);
     if (!token) {
       return null;
     }

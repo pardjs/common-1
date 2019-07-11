@@ -7,3 +7,12 @@ export class EntityParent {
   @CreateDateColumn({ name: "created_at" })
   public createdAt!: Date;
 }
+
+// tslint:disable-next-line: max-classes-per-file
+export class PostgresEntityParent {
+  @UpdateDateColumn({ type: "timestamp without time zone" })
+  public updatedAt!: Date;
+
+  @UpdateDateColumn({ type: "timestamp without time zone" })
+  public createdAt!: Date;
+}

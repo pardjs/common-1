@@ -13,6 +13,6 @@ export class PostgresEntityParent {
   @UpdateDateColumn({ type: "timestamp without time zone" })
   public updatedAt!: Date;
 
-  @UpdateDateColumn({ type: "timestamp without time zone" })
+  @CreateDateColumn({ type: "timestamp without time zone" })
   public createdAt!: Date;
 }

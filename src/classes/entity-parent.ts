@@ -10,9 +10,9 @@ export class EntityParent {
 
 // tslint:disable-next-line: max-classes-per-file
 export class PostgresEntityParent {
-  @UpdateDateColumn({ type: "timestamp without time zone" })
+  @UpdateDateColumn({ type: "timestamp with time zone" })
   public updatedAt!: Date;
 
-  @CreateDateColumn({ type: "timestamp without time zone" })
+  @CreateDateColumn({ type: "timestamp with time zone" })
   public createdAt!: Date;
 }

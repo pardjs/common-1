@@ -1,9 +1,9 @@
-import { ApiModelProperty } from "@nestjs/swagger";
+import { ApiProperty } from "@nestjs/swagger";
 
 export class TypeNameObjDto {
-  @ApiModelProperty()
+  @ApiProperty()
   public type!: string;
 
-  @ApiModelProperty()
+  @ApiProperty()
   public name!: string;
 }

@@ -1,4 +1,4 @@
-import { SetMetadata } from "@nestjs/common";
+import { CustomDecorator, SetMetadata } from "@nestjs/common";
 
-export const AllowedRoles = (...roles: string[]) =>
+export const AllowedRoles = (...roles: string[]): CustomDecorator<string> =>
   SetMetadata("allowedRoles", roles);

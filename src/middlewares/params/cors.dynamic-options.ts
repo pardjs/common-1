@@ -5,10 +5,13 @@ const whitelist = (process.env.FRONTEND_URL || "").split(",");
 export const corsOptions: CorsOptions = {
   credentials: true,
   origin: (origin, callback) => {
-    logger.info("origin", { origin });
+    if (process.env.PRINT_ORIGIN) {
+      logger.info("origin", { origin });
+    }
     if (whitelist.indexOf(origin) !== -1 || !origin) {
       callback(null, true);
     } else {
+      logger.error("origin is not in the cors whitelist", { whitelist, origin });
       callback(null, false);
     }
   },

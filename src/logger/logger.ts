@@ -6,7 +6,7 @@ require("winston-daily-rotate-file");
 const logPath = resolve(LOG_PATH || "./logs");
 const transportInfo = new (winston.transports as any).DailyRotateFile({
   datePattern: "YYYY-MM-DD-HH",
-  filename: logPath + "/log-%DATE%.log",
+  filename: `${logPath}/${process.env.HOSTNAME}-log-%DATE%.log`,
   level: "info",
   maxFiles: "14d",
   maxSize: "20m",
@@ -15,7 +15,7 @@ const transportInfo = new (winston.transports as any).DailyRotateFile({
 
 const transportError = new (winston.transports as any).DailyRotateFile({
   datePattern: "YYYY-MM-DD-HH",
-  filename: logPath + "/error-%DATE%.log",
+  filename: `${logPath}/${process.env.HOSTNAME}-error-%DATE%.log`,
   level: "error",
   maxFiles: "14d",
   maxSize: "20m",
@@ -23,7 +23,7 @@ const transportError = new (winston.transports as any).DailyRotateFile({
 });
 
 const logger = winston.createLogger({
-  defaultMeta: { service: "common" },
+  defaultMeta: { service: "common", hostname: process.env.HOSTNAME },
   format: winston.format.combine(
     winston.format.timestamp(),
     winston.format.json(),

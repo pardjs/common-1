@@ -5,9 +5,15 @@ import {
   HttpException,
   HttpStatus,
 } from "@nestjs/common";
+import { captureException, init as initSentry } from "@sentry/node";
 import { Request } from "express";
-import { DEFAULT_LANGUAGE } from "../constants/index";
-import { logger } from "../logger/index";
+import { DEFAULT_LANGUAGE } from "../constants";
+import { SENTRY_DSN } from "../constants";
+import { logger } from "../logger";
+
+if (SENTRY_DSN) {
+  initSentry({ dsn: SENTRY_DSN });
+}
 
 @Catch()
 export class HttpExceptionFilter implements ExceptionFilter {
@@ -16,6 +22,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
     const res = ctx.getResponse();
     const req: Request = ctx.getRequest();
     let status = exception.getStatus && exception.getStatus();
+    captureException(exception);
     let resData;
     if (!status) {
       status = HttpStatus.INTERNAL_SERVER_ERROR;
@@ -48,7 +55,6 @@ export class HttpExceptionFilter implements ExceptionFilter {
       });
     }
     // TODO: sentry support
-    // TODO: message i2n support, accept-language > default-language > zh-CN
     res.status(status).json({
       error: {
         ...resData,

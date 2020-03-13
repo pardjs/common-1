@@ -1,4 +1,4 @@
-import { Request } from "express";
+import { Request } from 'express';
 // This is an extension of `passport-jwt` > `extract-jwt`.
 export const fromAnywhere = () => {
   return (req: Request) => {
@@ -10,7 +10,7 @@ export const fromAnywhere = () => {
     if (!token) {
       return null;
     }
-    const parts = token.split(" ");
+    const parts = token.split(' ');
     if (parts.length > 1) {
       return parts.pop();
     }

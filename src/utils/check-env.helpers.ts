@@ -1,4 +1,4 @@
-import { ok } from "assert";
+import { ok } from 'assert';
 
 export const checkEnv = (...names: string[]) => {
   for (const name of names) {

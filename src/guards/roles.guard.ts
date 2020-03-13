@@ -1,8 +1,8 @@
-import { CanActivate, ExecutionContext, Injectable } from "@nestjs/common";
-import { Reflector } from "@nestjs/core";
-import { logger } from "../logger/index";
+import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
+import { Reflector } from '@nestjs/core';
+import { logger } from '../logger/index';
 
-const childLogger = logger.child({ service: "roles-guard" });
+const childLogger = logger.child({ service: 'roles-guard' });
 
 @Injectable()
 export class RolesGuard implements CanActivate {
@@ -10,17 +10,17 @@ export class RolesGuard implements CanActivate {
     const request = context.switchToHttp().getRequest();
     const user = request.user;
     if (!user) {
-      childLogger.error("user not found", {
+      childLogger.error('user not found', {
         reqBody: request.body,
         reqHeaders: request.headers,
       });
       return false;
     }
     const roles = Reflect.getMetadata(
-      "allowedRoles",
+      'allowedRoles',
       context.getHandler(),
     ) as string[];
-    if (!roles || roles.length === 0 || roles[0] === "*") {
+    if (!roles || roles.length === 0 || roles[0] === '*') {
       return true;
     }
     if (!user.role) {

@@ -1,1 +1,1 @@
-declare module "node-xlsx";
+declare module 'node-xlsx';

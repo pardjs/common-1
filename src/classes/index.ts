@@ -1,2 +1,2 @@
-export * from "./entity-parent";
-export * from "./type-name-obj.dto";
+export * from './entity-parent';
+export * from './type-name-obj.dto';

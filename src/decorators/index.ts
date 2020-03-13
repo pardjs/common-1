@@ -1,1 +1,1 @@
-export * from "./allowed-roles.decorator";
+export * from './allowed-roles.decorator';

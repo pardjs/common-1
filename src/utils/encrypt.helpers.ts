@@ -1,16 +1,16 @@
-import * as bcrypt from "bcrypt";
-import { createHash, createHmac, HexBase64Latin1Encoding } from "crypto";
+import * as bcrypt from 'bcrypt';
+import { createHash, createHmac, HexBase64Latin1Encoding } from 'crypto';
 
 export const md5 = (raw: string) => {
-  return createHash("md5")
+  return createHash('md5')
     .update(raw)
-    .digest("hex");
+    .digest('hex');
 };
 
 export const sha256 = (raw: string, key: string) => {
-  return createHmac("sha256", key)
+  return createHmac('sha256', key)
     .update(raw)
-    .digest("hex");
+    .digest('hex');
 };
 
 export const superMd5 = (raw: string, key: string) => {
@@ -31,13 +31,13 @@ export const comparePassword = async (raw: string, hash: string) => {
 export const sha1 = (
   key: string,
   content: string,
-  encoding: HexBase64Latin1Encoding = "base64",
+  encoding: HexBase64Latin1Encoding = 'base64',
 ) => {
-  return createHmac("sha1", key)
+  return createHmac('sha1', key)
     .update(content)
     .digest(encoding);
 };
 
 export const objToBase64 = (obj: object) => {
-  return Buffer.from(JSON.stringify(obj)).toString("base64");
+  return Buffer.from(JSON.stringify(obj)).toString('base64');
 };

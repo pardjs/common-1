@@ -1,4 +1,4 @@
-import { MS_ONE_HOUR } from "../constants/index";
+import { MS_ONE_HOUR } from '../constants/index';
 
 export const spanMSes = (base: Date, compare: Date = new Date()) => {
   return compare.getTime() - base.getTime();

@@ -4,12 +4,12 @@ import {
   ExceptionFilter,
   HttpException,
   HttpStatus,
-} from "@nestjs/common";
-import { captureException, init as initSentry } from "@sentry/node";
-import { Request } from "express";
-import { DEFAULT_LANGUAGE } from "../constants";
-import { SENTRY_DSN } from "../constants";
-import { logger } from "../logger";
+} from '@nestjs/common';
+import { captureException, init as initSentry } from '@sentry/node';
+import { Request } from 'express';
+import { DEFAULT_LANGUAGE } from '../constants';
+import { SENTRY_DSN } from '../constants';
+import { logger } from '../logger';
 
 if (SENTRY_DSN) {
   initSentry({ dsn: SENTRY_DSN });
@@ -28,18 +28,18 @@ export class HttpExceptionFilter implements ExceptionFilter {
       status = HttpStatus.INTERNAL_SERVER_ERROR;
       resData = {
         message: exception.message,
-        stack: process.env.NODE_ENV !== "production" && exception.stack,
+        stack: process.env.NODE_ENV !== 'production' && exception.stack,
       };
     } else {
       resData = exception.getResponse() as any;
       if (
         resData.message &&
-        typeof resData.message === "object" &&
+        typeof resData.message === 'object' &&
         resData.message
       ) {
         let lang = DEFAULT_LANGUAGE;
-        if (req.headers["accept-language"]) {
-          lang = req.headers["accept-language"].startsWith("en") ? "en" : "zh";
+        if (req.headers['accept-language']) {
+          lang = req.headers['accept-language'].startsWith('en') ? 'en' : 'zh';
         }
         const txtMessage = resData.message[lang];
         if (txtMessage) {
@@ -48,7 +48,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
       }
     }
     if (status !== HttpStatus.OK) {
-      logger.error("error caught in http exception handler", {
+      logger.error('error caught in http exception handler', {
         reqBody: req.body,
         reqHeaders: req.headers,
         reqQuery: req.query,
@@ -56,11 +56,13 @@ export class HttpExceptionFilter implements ExceptionFilter {
         status,
       });
     }
-    const responseBody = resData.error ? resData : {
-      error: {
-        ...resData,
-      },
-    };
+    const responseBody = resData.error
+      ? resData
+      : {
+          error: {
+            ...resData,
+          },
+        };
     res.status(status).json(responseBody);
   }
 }

@@ -37,8 +37,10 @@ export class HttpExceptionFilter implements ExceptionFilter {
         typeof resData.message === "object" &&
         resData.message
       ) {
-        const lang =
-          (req.headers["accept-language"] as string) || DEFAULT_LANGUAGE;
+        let lang = DEFAULT_LANGUAGE;
+        if (req.headers["accept-language"]) {
+          lang = req.headers["accept-language"].startsWith("en") ? "en" : "zh";
+        }
         const txtMessage = resData.message[lang];
         if (txtMessage) {
           resData.message = txtMessage;
@@ -54,11 +56,11 @@ export class HttpExceptionFilter implements ExceptionFilter {
         status,
       });
     }
-    // TODO: sentry support
-    res.status(status).json({
+    const responseBody = resData.error ? resData : {
       error: {
         ...resData,
       },
-    });
+    };
+    res.status(status).json(responseBody);
   }
 }

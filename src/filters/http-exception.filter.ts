@@ -22,7 +22,6 @@ export class HttpExceptionFilter implements ExceptionFilter {
     const res = ctx.getResponse();
     const req: Request = ctx.getRequest();
     let status = exception.getStatus && exception.getStatus();
-    captureException(exception);
     let resData;
     if (!status) {
       status = HttpStatus.INTERNAL_SERVER_ERROR;
@@ -48,21 +47,23 @@ export class HttpExceptionFilter implements ExceptionFilter {
       }
     }
     if (status !== HttpStatus.OK) {
-      logger.error('error caught in http exception handler', {
+      const logObj = {
         reqBody: req.body,
         reqHeaders: req.headers,
         reqQuery: req.query,
         resData,
         status,
-      });
+      };
+      captureException(logObj);
+      logger.error('error caught in http exception handler', logObj);
     }
     const responseBody = resData.error
       ? resData
       : {
-          error: {
-            ...resData,
-          },
-        };
+        error: {
+          ...resData,
+        },
+      };
     res.status(status).json(responseBody);
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "@pardjs/common",
-  "version": "1.2.0-RC3",
+  "version": "1.2.0-RC4",
   "description": "the common components used in nest.js projects.",
   "main": "dist/index.js",
   "files": [
@@ -30,7 +30,7 @@
     "@nestjs/core": "^6.11.7",
     "@nestjs/jwt": "^6.1.1",
     "@nestjs/passport": "^6.1.1",
-    "@nestjs/swagger": "^4.2.8",
+    "@nestjs/swagger": "^4.3.2",
     "@nestjs/typeorm": "^6.1.1",
     "@sentry/node": "5.13.2",
     "bcrypt": "^3.0.6",

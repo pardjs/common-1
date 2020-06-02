@@ -1,6 +1,6 @@
 {
   "name": "@pardjs/common",
-  "version": "1.2.0-RC5",
+  "version": "1.2.0",
   "description": "the common components used in nest.js projects.",
   "main": "dist/index.js",
   "files": [

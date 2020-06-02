@@ -53,6 +53,8 @@ export class HttpExceptionFilter implements ExceptionFilter {
         reqQuery: req.query,
         resData,
         status,
+        traceId: req.headers['X-Trace-Id'],
+        transactionId: req.headers['X-Transaction-Id'],
       };
       captureException(logObj);
       logger.error('error caught in http exception handler', logObj);
@@ -60,10 +62,10 @@ export class HttpExceptionFilter implements ExceptionFilter {
     const responseBody = resData.error
       ? resData
       : {
-        error: {
-          ...resData,
-        },
-      };
+          error: {
+            ...resData,
+          },
+        };
     res.status(status).json(responseBody);
   }
 }

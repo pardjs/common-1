@@ -1,6 +1,6 @@
 {
   "name": "@pardjs/common",
-  "version": "1.2.0-RC4",
+  "version": "1.2.0-RC5",
   "description": "the common components used in nest.js projects.",
   "main": "dist/index.js",
   "files": [
@@ -13,7 +13,8 @@
     "lint": "tslint -c ./tslint.json --project .",
     "test": "jest",
     "commit": "yarn run format && yarn run lint && git add . && git-cz && git push",
-    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\""
+    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "bump": "bump --tag --push --publish"
   },
   "repository": {
     "type": "git",

@@ -14,7 +14,7 @@
     "test": "jest",
     "commit": "yarn run format && yarn run lint && git add . && git-cz && git push",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "bump": "bump --tag --push --publish"
+    "bump": "bump --tag --push"
   },
   "repository": {
     "type": "git",

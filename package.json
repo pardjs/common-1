@@ -35,7 +35,7 @@
     "@nestjs/typeorm": "^6.1.1",
     "@sentry/node": "5.13.2",
     "bcrypt": "^3.0.6",
-    "class-transformer": "^0.2.3",
+    "class-transformer": "^0.3.1",
     "class-validator": "^0.11.0",
     "dayjs": "^1.8.17",
     "express": "^4.17.1",

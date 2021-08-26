@@ -62,10 +62,10 @@ export class HttpExceptionFilter implements ExceptionFilter {
     const responseBody = resData.error
       ? resData
       : {
-          error: {
-            ...resData,
-          },
-        };
+        error: {
+          ...resData,
+        },
+      };
     res.status(status).json(responseBody);
   }
 }

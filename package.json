@@ -36,7 +36,7 @@
     "@sentry/node": "5.13.2",
     "bcrypt": "^5.0.0",
     "class-transformer": "^0.3.1",
-    "class-validator": "^0.11.0",
+    "class-validator": "^0.14.0",
     "dayjs": "^1.8.17",
     "express": "^4.17.1",
     "node-xlsx": "^0.15.0",
